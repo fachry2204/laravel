@@ -35,4 +35,17 @@ return [
         ],
     ],
 
+    'rajaongkir' => [
+        'key' => env('RAJAONGKIR_API_KEY'),
+        'base_url' => env('RAJAONGKIR_BASE_URL', 'https://pro.rajaongkir.com/api'),
+        'origin' => env('RAJAONGKIR_ORIGIN'), // ID of the shop's city
+    ],
+
+    'tripay' => [
+        'api_key' => env('TRIPAY_API_KEY'),
+        'private_key' => env('TRIPAY_PRIVATE_KEY'),
+        'merchant_code' => env('TRIPAY_MERCHANT_CODE'),
+        'base_url' => env('TRIPAY_BASE_URL', 'https://tripay.co.id/api-sandbox'),
+    ],
+
 ];
