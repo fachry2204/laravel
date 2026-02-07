@@ -26,6 +26,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 use App\Http\Controllers\CustomerOrderController;
+use App\Http\Middleware\EnsureUserIsAdmin;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
@@ -36,12 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/my-orders/{order}', [CustomerOrderController::class, 'show'])->name('my-orders.show');
 
     // Admin Routes
-    Route::prefix('admin')->name('admin.')->middleware(function ($request, $next) {
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized');
-        }
-        return $next($request);
-    })->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware(EnsureUserIsAdmin::class)->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         
         Route::resource('categories', CategoryController::class);
